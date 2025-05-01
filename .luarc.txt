@@ -1,0 +1,4 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "workspace.library": [ "$HOME/dev/Lua/Love_Game/love2d/library/" ]
+}
