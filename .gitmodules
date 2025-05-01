@@ -1,6 +1,3 @@
-[submodule "libs/somerepo"]
-    path = libs/somerepo
-    url = https://github.com/LuaCATS/love2d
 [submodule "love2d"]
 	path = love2d
 	url = https://github.com/LuaCATS/love2d
