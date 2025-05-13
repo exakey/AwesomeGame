@@ -9,7 +9,8 @@ function love.load()
         player.sprite      = love.graphics.newImage("assets/pacman.png")
         player.w           = player.sprite:getWidth() * 0.5
         player.h           = player.sprite:getHeight() * 0.5
-        player.scale       = (game.screen_height * game.screen_width) * 0.01
+        -- player.scale       = (game.screen_height * game.screen_width) * 0.01
+        player.scale       = 0.05
 
         player.position    = {
                 x = love.graphics.getWidth() * 0.5,
@@ -48,6 +49,11 @@ function love.update(dt)
                 player.position.x = player.position.x + player.speed
                 player.angle      = 0 * (math.pi / 180)
         end
+        ---@diagnostic disable-next-line: param-type-mismatch
+        if love.keyboard.isDown("escape") then
+                -- love.window.close()
+                os.exit()
+        end
 end
 
 function love.draw()
@@ -58,6 +64,7 @@ function love.draw()
                 player.angle,
                 -- player.scale.x,
                 -- player.scale.y,
+                player.scale,
                 player.scale,
                 player.h,
                 player.w
