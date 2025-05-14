@@ -1,66 +1,71 @@
+---@diagnostic disable: param-type-mismatch
+game   = {}
+player = {}
+
 function love.load()
         -- SCREEN
-        game               = {}
         game.screen_width  = 800
         game.screen_height = 600
+        -- love.window.setMode(game.screen_width, game.screen_height, { resizable = true, highdpi = true })
 
         -- PLAYER
-        player             = {}
         player.sprite      = love.graphics.newImage("assets/pacman.png")
         player.w           = player.sprite:getWidth() * 0.5
         player.h           = player.sprite:getHeight() * 0.5
         -- player.scale       = (game.screen_height * game.screen_width) * 0.01
         player.scale       = 0.05
 
-        player.position    = {
-                x = love.graphics.getWidth() * 0.5,
-                y = love.graphics.getHeight() * 0.5,
-        }
+        player.x           = love.graphics.getWidth() * 0.5
+        player.y           = love.graphics.getHeight() * 0.5
 
         player.angle       = 270 * (math.pi / 180)
-        player.speed       = 3
-
-        -- CONTROLS
-        controls           = {}
-        controls.left      = { "a", "h", "left" }
-        controls.down      = { "s", "j", "down" }
-        controls.up        = { "w", "k", "up" }
-        controls.right     = { "d", "l", "right" }
+        player.speed       = 2
 end
 
+------------------------------------------------------------------------------------------------------------------------
+-- MOVEMENT AND CONTROLS
+
+controls     = {
+        left  = { "a", "h", "left" },
+        right = { "d", "l", "right" },
+        up    = { "w", "k", "up" },
+        down  = { "s", "j", "down" },
+}
+
+local isDown = love.keyboard.isDown
+
 function love.update(dt)
-        ---@diagnostic disable-next-line: param-type-mismatch
-        if love.keyboard.isDown(controls.left) then
-                player.position.x = player.position.x - player.speed
-                player.angle      = 180 * (math.pi / 180)
+        if isDown(controls.left) then
+                player.x     = player.x - player.speed
+                player.angle = 180 * (math.pi / 180)
+        elseif isDown(controls.right) then
+                player.x     = player.x + player.speed
+                player.angle = 0 * (math.pi / 180)
+        elseif isDown(controls.down) then
+                player.y     = player.y + player.speed
+                player.angle = 90 * (math.pi / 180)
+        elseif isDown(controls.up) then
+                player.y     = player.y - player.speed
+                player.angle = 270 * (math.pi / 180)
         end
-        ---@diagnostic disable-next-line: param-type-mismatch
-        if love.keyboard.isDown(controls.down) then
-                player.position.y = player.position.y + player.speed
-                player.angle      = 90 * (math.pi / 180)
+
+        if isDown("escape") then
+                love.event.quit(0)
         end
-        ---@diagnostic disable-next-line: param-type-mismatch
-        if love.keyboard.isDown(controls.up) then
-                player.position.y = player.position.y - player.speed
-                player.angle      = 270 * (math.pi / 180)
-        end
-        ---@diagnostic disable-next-line: param-type-mismatch
-        if love.keyboard.isDown(controls.right) then
-                player.position.x = player.position.x + player.speed
-                player.angle      = 0 * (math.pi / 180)
-        end
-        ---@diagnostic disable-next-line: param-type-mismatch
-        if love.keyboard.isDown("escape") then
-                -- love.window.close()
-                os.exit()
+
+        function love.keypressed()
+                if isDown("f") then
+                        fullscreen = not fullscreen
+                        love.window.setFullscreen(fullscreen, "exclusive")
+                end
         end
 end
 
 function love.draw()
         love.graphics.draw(
                 player.sprite,
-                player.position.x,
-                player.position.y,
+                player.x,
+                player.y,
                 player.angle,
                 -- player.scale.x,
                 -- player.scale.y,
