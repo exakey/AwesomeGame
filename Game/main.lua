@@ -9,7 +9,7 @@ function love.load()
         -- love.window.setMode(game.screen_width, game.screen_height, { resizable = true, highdpi = true })
 
         -- PLAYER
-        player.sprite      = love.graphics.newImage("assets/pacmanPixel.png")
+        player.sprite      = love.graphics.newImage("assets/pacman.png")
         player.w           = player.sprite:getWidth() * 0.5
         player.h           = player.sprite:getHeight() * 0.5
         -- player.scale       = (game.screen_height * game.screen_width) * 0.01
