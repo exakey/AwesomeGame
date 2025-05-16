@@ -22,19 +22,19 @@ function love.load()
         player.speed       = 2
 end
 
-------------------------------------------------------------------------------------------------------------------------
--- MOVEMENT AND CONTROLS
-
-controls     = {
-        left  = { "a", "h", "left" },
-        right = { "d", "l", "right" },
-        up    = { "w", "k", "up" },
-        down  = { "s", "j", "down" },
-}
-
 local isDown = love.keyboard.isDown
 
 function love.update(dt)
+        controls = {
+                left  = { "a", "h", "left" },
+                right = { "d", "l", "right" },
+                up    = { "w", "k", "up" },
+                down  = { "s", "j", "down" },
+        }
+
+        ----------------------------------------------------------------------------------------------------------------
+        -- MOVEMENT AND CONTROLS
+
         if isDown(controls.left) then
                 player.x     = player.x - player.speed
                 player.angle = 180 * (math.pi / 180)
